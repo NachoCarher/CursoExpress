@@ -1,30 +1,30 @@
-const express = require('express');
+const express = require("express");
 
 const app = express();
 
 // Routes
-app.get('/products', (req, res) => {
-    res.send('Lista de productos');
-})
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
-app.post('/products', (req, res) => {
-    res.send('creando productos');
-})
+// envia un archivo al cliente
+app.get("/miarchivo", (req, res) => {
+  res.sendFile("./color_4.png", { root: __dirname });
+});
 
-app.put('/products', (req, res) => {
-    res.send('actualizando producto');
-})
+// envia información de un usuario
+app.get("/user", (req, res) => {
+  res.json({
+    name: "John",
+    lastname: "Fernandez",
+    age: 25,
+    points: [1, 2, 3, 4, 5],
+    address: {
+      street: "Calle 1",
+      city: "Bogota",
+    },
+  });
+});
 
-app.delete('/products', (req, res) => {
-    res.send('eliminando un producto');
-})
-
-app.patch('/products', (req, res) => {
-    res.send('actualizando una parte del producto');
-})
-app.use((req, res) => {
-    res.status(404).send('404 Page Not Found');
-})
-
-app.listen(3000)
-console.log('Server running on port 3000');
+app.listen(3000);
+console.log("Server running on port 3000");
