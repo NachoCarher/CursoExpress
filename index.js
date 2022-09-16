@@ -2,22 +2,17 @@ const express = require("express");
 
 const app = express();
 
-// express primero procesa las peticiones, por eso se ponen antes estos metodos
-// procesa como texto el body de la petición que envía el cliente
-app.use(express.text());
+// con : lo que viene después son parámetros
+app.get('/hello/:username', (req, res) => {
+    console.log(req.params);
+    console.log(req.params.username);
+    res.send(`Hello ${req.params.username.toUpperCase()}`);
+});
 
-// procesa como json el body de la petición que envía el cliente
-app.use(express.json());
-
-// procesa como formulario el body de la petición que envía el cliente
-app.use(express.urlencoded({ extended: false }));
-
-// cliente envia datos al servidor
-app.post('/user', (req, res) => {
-    console.log(req.body);
-    res.send('Nuevo usuario creado')
-
-})
+app.get('/add/:x/:y', (req, res) => {
+    const { x, y } = req.params;
+    res.send(`El resultado es ${parseInt(x) + parseInt(y)}`);
+});
 
 app.listen(3000);
 console.log("Server running on port 3000");
