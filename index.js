@@ -2,29 +2,22 @@ const express = require("express");
 
 const app = express();
 
-// Routes
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// express primero procesa las peticiones, por eso se ponen antes estos metodos
+// procesa como texto el body de la petición que envía el cliente
+app.use(express.text());
 
-// envia un archivo al cliente
-app.get("/miarchivo", (req, res) => {
-  res.sendFile("./color_4.png", { root: __dirname });
-});
+// procesa como json el body de la petición que envía el cliente
+app.use(express.json());
 
-// envia información de un usuario
-app.get("/user", (req, res) => {
-  res.json({
-    name: "John",
-    lastname: "Fernandez",
-    age: 25,
-    points: [1, 2, 3, 4, 5],
-    address: {
-      street: "Calle 1",
-      city: "Bogota",
-    },
-  });
-});
+// procesa como formulario el body de la petición que envía el cliente
+app.use(express.urlencoded({ extended: false }));
+
+// cliente envia datos al servidor
+app.post('/user', (req, res) => {
+    console.log(req.body);
+    res.send('Nuevo usuario creado')
+
+})
 
 app.listen(3000);
 console.log("Server running on port 3000");
