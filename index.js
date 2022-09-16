@@ -3,18 +3,25 @@ const express = require('express');
 const app = express();
 
 // Routes
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/products', (req, res) => {
+    res.send('Lista de productos');
 })
 
-app.get('/about', (req, res) => {
-    res.send('About Page');
+app.post('/products', (req, res) => {
+    res.send('creando productos');
 })
 
-app.get('/weather', (req, res) => {
-    res.send('The current weather is nice');
+app.put('/products', (req, res) => {
+    res.send('actualizando producto');
 })
 
+app.delete('/products', (req, res) => {
+    res.send('eliminando un producto');
+})
+
+app.patch('/products', (req, res) => {
+    res.send('actualizando una parte del producto');
+})
 app.use((req, res) => {
     res.status(404).send('404 Page Not Found');
 })
