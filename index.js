@@ -2,22 +2,16 @@ const express = require("express");
 
 const app = express();
 
-app.get("/search", (req, res) => {
-    if (req.query.q === "test") {
-        res.send("pagina de test");
-    } else {
-        res.send("pagina de search");
-    }
+// cualquier ruta que vaya a mi aplicación pasa antes por este middleware (función)
+app.use((req, res, next) => {
+    console.log(`Route: ${req.url} Metodo: ${req.method}`);
+
+    //si no llamo a next, la petición se queda aquí
+    next();
 });
 
-// con : lo que viene después son parámetros
-app.get('/hello/:username', (req, res) => {
-    res.send(`Hello ${req.params.username.toUpperCase()}`);
-});
-
-app.get('/add/:x/:y', (req, res) => {
-    const { x, y } = req.params;
-    res.send(`El resultado es ${parseInt(x) + parseInt(y)}`);
+app.get("/profile", (req, res) => {
+    res.send("profile page");
 });
 
 app.listen(3000);
