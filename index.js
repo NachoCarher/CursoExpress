@@ -2,10 +2,16 @@ const express = require("express");
 
 const app = express();
 
+app.get("/search", (req, res) => {
+    if (req.query.q === "test") {
+        res.send("pagina de test");
+    } else {
+        res.send("pagina de search");
+    }
+});
+
 // con : lo que viene después son parámetros
 app.get('/hello/:username', (req, res) => {
-    console.log(req.params);
-    console.log(req.params.username);
     res.send(`Hello ${req.params.username.toUpperCase()}`);
 });
 
