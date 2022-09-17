@@ -2,16 +2,28 @@ const express = require("express");
 
 const app = express();
 
-// cualquier ruta que vaya a mi aplicación pasa antes por este middleware (función)
+// logger middleware
 app.use((req, res, next) => {
     console.log(`Route: ${req.url} Metodo: ${req.method}`);
-
-    //si no llamo a next, la petición se queda aquí
     next();
 });
 
+// profile route
 app.get("/profile", (req, res) => {
-    res.send("profile page");
+    res.send("Profile");
+});
+
+// isAuth middleware
+app.use((req, res, next) => {
+    if (req.query.login === "nacho@correo.com") {
+        next();
+    } else {
+        res.send("No tienes permisos para acceder a esta ruta");
+    }
+});
+
+app.get("/dashboard", (req, res) => {
+    res.send("Dashboard page");
 });
 
 app.listen(3000);
